@@ -107,7 +107,7 @@ def plot_epw(epw_df):
 # SCRIPT
 
 # do some housekeeping and create some variables
-epw_path = './Weather Files/USA_CA_San.Diego-Lindbergh.Field.722900_TMY3.epw'
+epw_path = './Weather Files/CZ06RV2.epw'
 epw_df = read_epw(epw_path)
 
 fig = plot_epw(epw_df)
