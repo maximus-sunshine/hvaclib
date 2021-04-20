@@ -129,8 +129,8 @@ To get started, upload a .epw file - or click "See example"."""
 uploaded_file = st.file_uploader("Upload a .epw file")
 
 if st.button('See example'):
-    epw_df = read_epw(epw_path + random.choice(os.listdir(epw_path)))  # pick a random example file
-    epw_df = read_epw(epw_path)
+    # epw_df = read_epw(epw_path + random.choice(os.listdir(epw_path)))  # pick a random example file
+    epw_df = read_epw('./Weather Files/CZ06RV2.epw')
     fig = plot_epw(epw_df)
 
     """
