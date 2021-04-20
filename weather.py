@@ -51,7 +51,7 @@ from ladybug.epw import EPW
 #   - make column names better
 #
 #
-def read_epw(epw_file):
+def read_epw(epw_path):
     # read in a .epw file using ladybug-pandas (https://github.com/ladybug-tools/ladybug-pandas)
     epw = EPW(epw_path)
     epw._import_data()
