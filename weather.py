@@ -109,7 +109,6 @@ def plot_epw(epw_df):
 # do some housekeeping and create some variables
 st.set_page_config(layout="wide")
 epw_path = './Weather Files/'
-epw_df = read_epw(epw_path)
 fig = go.Figure()
 
 # use triple quotes instead of st.write() for multiline printing using Markdown syntax
