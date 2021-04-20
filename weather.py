@@ -128,33 +128,33 @@ To get started, upload a .epw file - or click "See example"."""
 
 uploaded_file = st.file_uploader("Upload a .epw file")
 
-if st.button('See example'):
-    # epw_df = read_epw(epw_path + random.choice(os.listdir(epw_path)))  # pick a random example file
-    epw_df = read_epw('Weather Files/CZ06RV2.epw')
-    fig = plot_epw(epw_df)
-
-    """
-    ### Raw Data (example):
-
-    Uploaded file should be in .epw format
-
-    Click "See example" again to see a different example.
-    """
-
-    # this line displays the .csv file in table format, with the index column suppressed to avoid confusion
-    st.dataframe(epw_df.assign(drop_index='').set_index('drop_index'))
-
-    """
-    ### Point Trend Graph (example):
-
-    Click on point names in the legend to make them visible.
-
-    Pan and zoom with your mouse to get a closer look at the data. Double click inside the graph to reset the axes.
-
-    You can download this graph as a .png by clicking the camera icon in the plot figure menu.
-    """
-
-    st.plotly_chart(fig, use_container_width=True)
+# if st.button('See example'):
+#     # epw_df = read_epw(epw_path + random.choice(os.listdir(epw_path)))  # pick a random example file
+#     epw_df = read_epw('Weather Files/CZ06RV2.epw')
+#     fig = plot_epw(epw_df)
+#
+#     """
+#     ### Raw Data (example):
+#
+#     Uploaded file should be in .epw format
+#
+#     Click "See example" again to see a different example.
+#     """
+#
+#     # this line displays the .csv file in table format, with the index column suppressed to avoid confusion
+#     st.dataframe(epw_df.assign(drop_index='').set_index('drop_index'))
+#
+#     """
+#     ### Point Trend Graph (example):
+#
+#     Click on point names in the legend to make them visible.
+#
+#     Pan and zoom with your mouse to get a closer look at the data. Double click inside the graph to reset the axes.
+#
+#     You can download this graph as a .png by clicking the camera icon in the plot figure menu.
+#     """
+#
+#     st.plotly_chart(fig, use_container_width=True)
 
 if uploaded_file is not None:
     epw_df = read_epw(uploaded_file)
