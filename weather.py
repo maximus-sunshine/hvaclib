@@ -144,7 +144,7 @@ if st.button('See example'):
     # # this line displays the .csv file in table format, with the index column suppressed to avoid confusion
     # st.dataframe(epw_df.assign(drop_index='').set_index('drop_index'))
     # st.dataframe(epw_df)
-    st.write(df.astype('object'))
+    st.write(epw_df.astype('object'))
 
     """
     ### Point Trend Graph (example):
