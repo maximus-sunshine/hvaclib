@@ -131,7 +131,7 @@ uploaded_file = st.file_uploader("Upload a .epw file")
 
 if st.button('See example'):
     # epw_df = read_epw(epw_path + random.choice(os.listdir(epw_path)))  # pick a random example file
-    epw_path = './Weather Files/USA_CA_San.Diego-Lindbergh.Field.722900_TMY3.epw'
+    epw_path = '/app/hvaclib/Weather Files/USA_CA_San.Diego-Lindbergh.Field.722900_TMY3.epw'
     epw_df = read_epw(epw_path)
     fig = plot_epw(epw_df)
 
