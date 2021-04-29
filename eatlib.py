@@ -17,6 +17,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import datetime
 import numpy as np
+import openpyxl
 # import warnings
 # import time
 # import tkinter as tk
@@ -42,7 +43,7 @@ from matplotlib import pyplot as plt
 # testing
 
 #####################################################
-# plot_time(df) - variable vs. time plotting function
+# plot_time(load_df) - variable vs. time plotting function
 #
 #   Imports:
 #
@@ -54,7 +55,7 @@ from matplotlib import pyplot as plt
 #
 #   Inputs:
 #
-#   df - a pandas DataFrame object with timestamps in the first column & some variable of interest in the second column.
+#   load_df - a pandas DataFrame object with timestamps in the first column & some variable of interest in the second column.
 #
 #
 #   Outputs:
@@ -109,7 +110,7 @@ def plot_time(df):
     return fig
 #
 # # PLOTLY.EXPRESS VERSION - STABLE
-# def plot_time(df):
+# def plot_time(load_df):
 #     # import pandas as pd
 #     # import plotly.express as px
 #     # import datetime
@@ -119,21 +120,21 @@ def plot_time(df):
 #     print('plotly backend activated...')
 #
 #     print("\n HERE'S A PREVIEW OF THE DATA YOU'RE PLOTTING:")
-#     print(df)   # print some information about the data being plotted
+#     print(load_df)   # print some information about the data being plotted
 #     print()
-#     print(df.dtypes)
+#     print(load_df.dtypes)
 #
 #     print('\nconverting timestamp data...')  # convert timestamps to datetime64 objects
-#     timestamp = pd.to_datetime(df.iloc[:, 0])
-#     print('TIMESTAMP DATA CONVERTED FROM', type(df.iloc[0, 0]), 'TO', type(timestamp[0]))
-#     df.iloc[:, 0] = timestamp
-#     print(df.iloc[:, 0].head())
+#     timestamp = pd.to_datetime(load_df.iloc[:, 0])
+#     print('TIMESTAMP DATA CONVERTED FROM', type(load_df.iloc[0, 0]), 'TO', type(timestamp[0]))
+#     load_df.iloc[:, 0] = timestamp
+#     print(load_df.iloc[:, 0].head())
 #
-#     y_values = df.iloc[:,1] # values in the 2nd column will be plotted on the y-axis
-#     x_values = df.iloc[:,0] # timestamps on the x-axis
+#     y_values = load_df.iloc[:,1] # values in the 2nd column will be plotted on the y-axis
+#     x_values = load_df.iloc[:,0] # timestamps on the x-axis
 #
-#     y_label = df.columns[1] # name of 2nd column is y-axis label
-#     x_label = df.columns[0] # name of 1st column is x-axis label
+#     y_label = load_df.columns[1] # name of 2nd column is y-axis label
+#     x_label = load_df.columns[0] # name of 1st column is x-axis label
 #     xy_labels = {'x': x_label, 'y': y_label}    # create a dictionary of the labels to pass to px.line
 #
 #     fig = px.line(x=x_values, y=y_values, labels=xy_labels, title=y_label + ' vs. ' + x_label)  # plot using plotly
@@ -141,18 +142,18 @@ def plot_time(df):
 #     return
 #
 # MATPLOTLIB VERSION - STABLE
-# def plot_time(df):
+# def plot_time(load_df):
 #     # import pandas as pd
 #     # from matplotlib import pyplot as plt
 #
-#     y_values = df.iloc[:,1]  # Values in the 2nd column will be plotted on the y-axis
+#     y_values = load_df.iloc[:,1]  # Values in the 2nd column will be plotted on the y-axis
 #     x_values = range(len(y_values))  # x-axis is just a range of the same length as y_values
 #
 #     x_ticks = [x*796.364 for x in range(12)]    # create x ticks corresponding to months
 #     months = ['J','F','M','A','M','J','J','A','S','O','N','D']  # list of months
 #
-#     y_label = df.columns[1]  # Name of 2nd column is y-axis label
-#     x_label = df.columns[0]  # Name of 1st column is x-axis label
+#     y_label = load_df.columns[1]  # Name of 2nd column is y-axis label
+#     x_label = load_df.columns[0]  # Name of 1st column is x-axis label
 #
 #     fig, ax = plt.subplots()  # Create a figure containing a single axes.
 #     ax.set_title(y_label + ' vs. ' + x_label)  # set the title
@@ -167,7 +168,7 @@ def plot_time(df):
 
 
 #####################################################
-# plot_x(df) - variable vs. variable plotting function
+# plot_x(load_df) - variable vs. variable plotting function
 #
 #   Imports:
 #
@@ -178,7 +179,7 @@ def plot_time(df):
 #
 #   Inputs:
 #
-#   df - 'nx2' pandas DataFrame object with x-values in the first column & y-values in the second column.
+#   load_df - 'nx2' pandas DataFrame object with x-values in the first column & y-values in the second column.
 #
 #
 #   Outputs:
@@ -210,20 +211,20 @@ def plot_x(df):
     return
 #
 # MATPLOTLIB VERSION - STABLE
-# def plot_x(df):
+# def plot_x(load_df):
 #     # import pandas as pd
 #     # from matplotlib import pyplot as plt
 #
 #     print("\n HERE'S A PREVIEW OF THE DATA YOU'RE PLOTTING:")  # show a preview of the data passed to the function
-#     print(df)   # print some information about the data being plotted
+#     print(load_df)   # print some information about the data being plotted
 #     print()
-#     print(df.dtypes)
+#     print(load_df.dtypes)
 #
-#     x_values = df.iloc[:, 0]  # Values in the 1st column will be plotted on the x-axis
-#     y_values = df.iloc[:, 1]  # Values in the 2nd column will be plotted on the y-axis
+#     x_values = load_df.iloc[:, 0]  # Values in the 1st column will be plotted on the x-axis
+#     y_values = load_df.iloc[:, 1]  # Values in the 2nd column will be plotted on the y-axis
 #
-#     x_label = df.columns[0]  # Name of 1st column is x-axis label
-#     y_label = df.columns[1]  # Name of 2nd column is y-axis labelxy_labels = {'x': x_label, 'y': y_label}    # create a dictionary of the labels to pass to px.line
+#     x_label = load_df.columns[0]  # Name of 1st column is x-axis label
+#     y_label = load_df.columns[1]  # Name of 2nd column is y-axis labelxy_labels = {'x': x_label, 'y': y_label}    # create a dictionary of the labels to pass to px.line
 #
 #     # make the plot
 #     fig, ax = plt.subplots()  # Create a figure containing a single axes.

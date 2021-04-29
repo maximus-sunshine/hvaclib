@@ -1,7 +1,7 @@
 ####################################################################################################################
 # test.py
 #
-# Streamlit app for visualizing weather data for HVAC applications
+# testing weather visualization stuff
 
 
 
@@ -35,7 +35,7 @@ from ladybug.epw import EPW
 #
 #   Outputs:
 #
-#   df - a dataframe representation of the .epw data with slightly modified columns.
+#   load_df - a dataframe representation of the .epw data with slightly modified columns.
 #   metadata - the site metadata available in the .epw file
 #
 #
