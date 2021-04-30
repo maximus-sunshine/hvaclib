@@ -6,3 +6,4 @@ ladybug_pandas
 numpy
 streamlit
 ladybug
+openpyxl
