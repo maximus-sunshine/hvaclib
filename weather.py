@@ -89,11 +89,11 @@ def plot_epw(epw_df):
     fig = go.Figure()
 
     # create traces for all columns vs. timestamps
-    for i in range(epw_df.shape[1] - 1):
-        fig.add_trace(go.Scatter(x=epw_df.index, y=epw_df.iloc[:, i + 1],
+    for i in range(epw_df.shape[1]):
+        fig.add_trace(go.Scatter(x=epw_df.index, y=epw_df.iloc[:, i],
                                  visible='legendonly',
                                  mode='lines',
-                                 name=epw_df.columns[i + 1]))
+                                 name=epw_df.columns[i]))
 
     # layout configuration
     fig.update_layout(showlegend=True)  # force the legend for single-trace plots
