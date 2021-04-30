@@ -50,13 +50,13 @@ meta_df = pd.read_excel(
     engine='openpyxl'
 )
 meta_df.dropna(inplace=True)
+
 # read design MBH from spreadsheet and calculate 5% load increment
-# wb = load_workbook(file_path)
-# mbh_design = wb[sheet_name][mbh_design_cell].value
-# mbh_increment = mbh_design/20
+mbh_design = meta_df.iloc[0,0]
+mbh_increment = mbh_design/20
 
 # read GSF from spreadsheet & calculate Btu/sf for design & actual
-# gsf = wb[sheet_name][gsf_cell].value
+gsf = meta_df.iloc[0,0]
 btu_sf_design = round(1000 * mbh_design / gsf,2)
 btu_sf_actual = round(1000 * max_load / gsf,2)
 
