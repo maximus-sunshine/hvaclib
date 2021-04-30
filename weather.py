@@ -60,7 +60,7 @@ def read_epw(epw_path):
 
     # drop unwanted columns, & reset the timestamp column
     df_ip.index.name='timestamp'
-    df_ip.reset_index(inplace=True)
+    # df_ip.reset_index(inplace=True)
     return df_ip
 #####################################################
 
