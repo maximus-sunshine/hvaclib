@@ -26,7 +26,7 @@ from openpyxl import load_workbook
 
 # define some variables for reading in data
 file_path_in = 'Input Load Profiles/'
-file_name = 'SDSU Heat Load Analysis Multiple Bldgs.xlsx'
+file_name = 'SDSU Heat Load Analysis Multiple Bldgs - Original.xlsx'
 file_path_out = 'Output Plots/'
 sheet_name = 'GMCS'
 mbh_design_cell = 'X7'
