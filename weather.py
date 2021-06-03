@@ -17,6 +17,38 @@ from ladybug.epw import EPW
 ####################################################################################################################
 # FUNCTIONS
 
+def stringify_path(
+    filepath_or_buffer: FilePathOrBuffer[AnyStr],
+) -> FilePathOrBuffer[AnyStr]:
+    """
+    Attempt to convert a path-like object to a string.
+
+    Parameters
+    ----------
+    filepath_or_buffer : object to be converted
+
+    Returns
+    -------
+    str_filepath_or_buffer : maybe a string version of the object
+
+    Notes
+    -----
+    Objects supporting the fspath protocol (python 3.6+) are coerced
+    according to its __fspath__ method.
+
+    For backwards compatibility with older pythons, pathlib.Path and
+    py.path objects are specially coerced.
+
+    Any other object is passed through unchanged, which includes bytes,
+    strings, buffers, or anything else that's not even path-like.
+    """
+    if hasattr(filepath_or_buffer, "__fspath__"):
+        # https://github.com/python/mypy/issues/1424
+        return filepath_or_buffer.__fspath__()  # type: ignore
+    elif isinstance(filepath_or_buffer, pathlib.Path):
+        return str(filepath_or_buffer)
+    return _expand_user(filepath_or_buffer)
+
 
 #####################################################
 #   read_epw(epw_file) - read a .epw weather file into a pandas dataframe
@@ -108,7 +140,7 @@ def plot_epw(epw_df):
 
 # do some housekeeping and create some variables
 st.set_page_config(layout="wide")
-epw_path = './Weather Files/'
+epw_file_path = './Weather Files/'
 fig = go.Figure()
 
 # use triple quotes instead of st.write() for multiline printing using Markdown syntax
@@ -126,7 +158,7 @@ This app is compatible with weather data files saved in the [.epw](https://energ
 
 To get started, upload a .epw file - or click "See example"."""
 
-uploaded_file = st.file_uploader("Upload a .epw file")
+uploaded_file = st.file_uploader("Upload a .epw file", type='epw')
 
 if st.button('See example'):
     # epw_df = read_epw(epw_path + random.choice(os.listdir(epw_path)))  # pick a random example file
@@ -159,7 +191,8 @@ if st.button('See example'):
     st.plotly_chart(fig, use_container_width=True)
 
 if uploaded_file is not None:
-    epw_df = read_epw(uploaded_file)
+    bytes = uploaded_file.read()
+    epw_df = read_epw(bytes)
 
     fig = plot_epw(epw_df)
 

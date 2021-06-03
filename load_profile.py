@@ -24,22 +24,30 @@ import openpyxl
 
 # define some variables for reading in data
 file_path_in = 'Input Load Profiles/'
-file_path_out = 'Output Plots/'
-file_name = 'SDSU Heat Load Analysis Multiple Bldgs.xlsx'
-sheet_name = 'EISC'
+# file_name_in = 'SDSU Heat Load Analysis Multiple Bldgs.xlsx'
+file_name_in = '7646 SDSU EIS.xlsx'
+# sheet_name = 'GMCS'
+# sheet_name = 'Nasatir'
+# sheet_name = 'Storm'
+# sheet_name = 'EISC'
+sheet_name = 'Calculated Load'
 data_range = 'A:I'
 meta_data_range = 'K:L'
 
-# read load data into dataframe and calculate the total load
+# read load data into dataframe and calculate the total load, drop empty rows
 load_df = pd.read_excel(
-    file_path_in + file_name,
+    file_path_in + file_name_in,
     sheet_name=sheet_name,
     usecols=data_range,
     engine='openpyxl'
 )
-start = load_df['Timestamp'].iloc[0]
-end = load_df['Timestamp'].iloc[-1]
-td_in_hrs = round((load_df['Timestamp'].iloc[1] - load_df['Timestamp'].iloc[0]).seconds/3600,2)
+load_df.dropna(axis='index',how='all',inplace=True)
+
+# read load data into dataframe and calculate the total load, drop empty rows
+start = pd.to_datetime(load_df['Timestamp'].iloc[0])
+start_plus_one = pd.to_datetime(load_df['Timestamp'].iloc[1])
+end = pd.to_datetime(load_df['Timestamp'].iloc[-1])
+td_in_hrs = round((start_plus_one - start).seconds/3600,2)
 total_hrs = len(load_df)*td_in_hrs
 total_op_hrs = len(load_df['Heating Load (MBH)'][load_df['Heating Load (MBH)'] > 0])*td_in_hrs
 total_load = load_df['Heating Load (MBH)'].sum()
@@ -48,7 +56,7 @@ neg_loads = load_df['Heating Load (MBH)'][load_df['Heating Load (MBH)'] < 0]
 
 # read static inputs & metadata into dataframe
 meta_df = pd.read_excel(
-    file_path_in + file_name,
+    file_path_in + file_name_in,
     sheet_name=sheet_name,
     index_col=0,
     usecols=meta_data_range,
@@ -325,7 +333,7 @@ fig.update_layout(
     margin = dict(
         l = 50,
         r = 50,
-        t = 175,
+        t = 170,
         b = 50
     )
 )
@@ -345,4 +353,6 @@ fig.update_layout(
 fig.show()
 
 # write the figure to a shareable .html file
-fig.write_html(file_path_out + file_name + '_Plot.html')
+file_path_out = 'Output Plots/'
+file_name_out = 'Heat Load Analysis - ' + file_name_in
+fig.write_html(file_path_out + file_name_out + '_Plot.html')

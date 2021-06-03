@@ -53,7 +53,7 @@ from ladybug.epw import EPW
 #
 def read_epw(epw_file):
     # read in a .epw file using ladybug-pandas (https://github.com/ladybug-tools/ladybug-pandas)
-    epw = EPW(epw_path)
+    epw = EPW(epw_file)
     epw._import_data()
     df = lbp.DataFrame.from_epw(epw)
     df_ip = df.ladybug.to_ip()
@@ -107,10 +107,13 @@ def plot_epw(epw_df):
 # SCRIPT
 
 # do some housekeeping and create some variables
-epw_path = './Weather Files/CZ06RV2.epw'
-epw_df = read_epw(epw_path)
+epw_path1 = './Weather Files/CZ06RV2.epw'
+epw_path2 = './Weather Files/2087599580_TMY-12_1038080441.epw'
+epw_df1 = read_epw(epw_path1)
+epw_df2 = read_epw(epw_path2)
 
-fig = plot_epw(epw_df)
-fig.show()
+fig1 = plot_epw(epw_df1)
+fig2 = plot_epw(epw_df2)
+fig2.show()
 
 
